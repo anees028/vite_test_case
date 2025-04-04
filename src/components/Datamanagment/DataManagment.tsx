@@ -42,7 +42,6 @@ const DataManagement: React.FC = () => {
       setError(null);
     } catch (err) {
       setError('Failed to fetch users');
-      console.error('Error fetching users:', err);
     } finally {
       setLoading(false);
     }
