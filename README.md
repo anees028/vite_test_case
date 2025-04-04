@@ -1,54 +1,232 @@
-# React + TypeScript + Vite
+# User Management Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React TypeScript application that displays user data fetched from JSONPlaceholder API with a modern, responsive UI.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Fetch and display user data from JSONPlaceholder API
+- Responsive grid layout for user cards
+- Loading and error states
+- Detailed user information display including:
+  - Basic user information (name, username, email, phone)
+  - Address information with geo coordinates
+  - Company information
+- Modern UI with hover effects and smooth transitions
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React
+- TypeScript
+- CSS
+- Jest & React Testing Library for testing
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Project Structure
+
+```
+src/
+├── components/
+│   └── Datamanagment/
+│       ├── DataManagment.tsx    # Main component
+│       ├── DataManagment.css    # Component styles
+│       └── __tests__/
+│           └── DataManagment.test.tsx  # Test file
+└── setupTests.ts                # Test setup configuration
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd <project-directory>
 ```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+npm start
+```
+
+The application will be available at `http://localhost:3000`
+
+## Testing
+
+### Setup Testing Environment
+
+1. Install testing dependencies:
+```bash
+npm install --save-dev @testing-library/react @testing-library/jest-dom @types/jest jest jest-environment-jsdom ts-jest identity-obj-proxy
+```
+
+2. Add test scripts to `package.json`:
+```json
+{
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  }
+}
+```
+
+3. Create `jest.config.cjs` in the project root:
+```javascript
+module.exports = {
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
+  moduleNameMapper: {
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+  },
+  transform: {
+    '^.+\\.(ts|tsx)$': ['ts-jest', {
+      tsconfig: 'tsconfig.jest.json'
+    }]
+  },
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+};
+```
+
+4. Create `tsconfig.jest.json` in the project root:
+```json
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "types": ["jest", "node"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.test.ts", "src/**/*.test.tsx"]
+}
+```
+
+5. Create `src/setupTests.js`:
+```javascript
+// jest-dom adds custom jest matchers for asserting on DOM tests.
+require('@testing-library/jest-dom');
+
+// Mock global fetch
+global.fetch = jest.fn();
+
+// Add any other global test setup here
+```
+
+### Running Tests
+
+- Run all tests:
+```bash
+npm test
+```
+
+- Run tests in watch mode:
+```bash
+npm run test:watch
+```
+
+### Test Coverage
+
+The test suite covers:
+- Component mounting
+- Loading states
+- Error handling
+- Data rendering
+- Empty state handling
+- User information display
+- Address information
+- Company information
+
+## Component Details
+
+### DataManagement Component
+
+The main component that handles:
+- Data fetching from JSONPlaceholder API
+- State management using React hooks
+- Loading and error states
+- Rendering user information in a grid layout
+
+#### Props
+None (currently self-contained)
+
+#### State
+- `users`: Array of user objects
+- `loading`: Boolean for loading state
+- `error`: String for error messages
+
+## API Integration
+
+The application uses the JSONPlaceholder API endpoint:
+```
+https://jsonplaceholder.typicode.com/users
+```
+
+Response structure:
+```typescript
+interface User {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  address: {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
+    geo: {
+      lat: string;
+      lng: string;
+    }
+  };
+  phone: string;
+  website: string;
+  company: {
+    name: string;
+    catchPhrase: string;
+    bs: string;
+  }
+}
+```
+
+## Styling
+
+The application uses CSS with:
+- Responsive grid layout
+- Card-based design
+- Hover effects
+- Modern typography
+- Consistent spacing
+- Mobile-first approach
+
+## Future Improvements
+
+Potential enhancements:
+1. Add search functionality
+2. Implement sorting options
+3. Add pagination
+4. Include user filtering
+5. Add edit/delete capabilities
+6. Implement user authentication
+7. Add dark mode support
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details
