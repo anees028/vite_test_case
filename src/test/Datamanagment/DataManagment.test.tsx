@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import DataManagement from './DataManagment';
+import DataManagement from '../../components/Datamanagment/DataManagment';
 
 // Mock fetch globally
 global.fetch = jest.fn();

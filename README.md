@@ -28,8 +28,9 @@ src/
 │   └── Datamanagment/
 │       ├── DataManagment.tsx       # Main component
 │       ├── DataManagment.css       # Component styles
-│       └── DataManagment.test.tsx  # Test file
-└── setupTests.ts                # Test setup configuration
+├── test/
+│   └── DataManagment.test.tsx      # Test file
+└── setupTests.ts                   # Test setup configuration
 ```
 
 ## Getting Started
