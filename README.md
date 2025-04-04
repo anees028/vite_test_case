@@ -26,10 +26,9 @@ A React TypeScript application that displays user data fetched from JSONPlacehol
 src/
 ├── components/
 │   └── Datamanagment/
-│       ├── DataManagment.tsx    # Main component
-│       ├── DataManagment.css    # Component styles
-│       └── __tests__/
-│           └── DataManagment.test.tsx  # Test file
+│       ├── DataManagment.tsx       # Main component
+│       ├── DataManagment.css       # Component styles
+│       └── DataManagment.test.tsx  # Test file
 └── setupTests.ts                # Test setup configuration
 ```
 
@@ -44,8 +43,8 @@ src/
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd <project-directory>
+git clone https://github.com/anees028/vite_test_case
+cd vite_test_case
 ```
 
 2. Install dependencies:
@@ -58,7 +57,7 @@ npm install
 npm start
 ```
 
-The application will be available at `http://localhost:3000`
+The application will be available at `http://localhost:5173`
 
 ## Testing
 
@@ -126,7 +125,7 @@ global.fetch = jest.fn();
 
 - Run all tests:
 ```bash
-npm test
+npm run test
 ```
 
 - Run tests in watch mode:
